@@ -50,7 +50,6 @@ export async function runKaniHarnessInterface(
 						return -1;
 					}
 				} else {
-					console.error(error.message, error.cause);
 					return -1;
 				}
 			}

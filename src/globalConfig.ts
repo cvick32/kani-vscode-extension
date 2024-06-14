@@ -31,7 +31,13 @@ class GlobalConfig {
 	}
 
 	public getFilePath(): string {
-		return this.filePath;
+		//return this.filePath;
+		return this.getCargoKaniPath();
+	}
+	public getCargoKaniPath(): string {
+		let splitFile = this.filePath.split("/").slice(0, -1);
+		splitFile.push("cargo-kani");
+		return splitFile.join("/");
 	}
 }
 

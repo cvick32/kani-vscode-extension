@@ -1,6 +1,6 @@
 // Copyright Kani Contributors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
-import { execFile } from 'child_process';
+import { exec, execFile } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -76,14 +76,9 @@ export async function getKaniVersion(pathKani: string): Promise<void> {
  * @returns the path for the binary cargo-kani (either the installed binary or the development one)
  */
 export function getKaniPath(kaniCommand: string): Promise<string> {
-	const options = {
-		shell: false,
-	};
-
 	return new Promise((resolve, reject) => {
-		execFile('which', [kaniCommand], options, (error, stdout, stderr) => {
+		exec(`which ${kaniCommand}`, (error, stdout, stderr) => {
 			if (error) {
-				console.error(`execFile error: ${error}`);
 				reject(new Error(`Kani executable was not found in PATH.`));
 				return;
 			}
@@ -161,7 +156,6 @@ export async function createFailedDiffMessage(command: string): Promise<KaniResp
 	// Root dir of the crate and the command and args to be executed
 	const directory = path.resolve(getRootDir());
 	const commandSplit: CommandArgs = splitCommand(command);
-
 	// Get the args for the kani command to run
 	const args = commandSplit.args;
 
