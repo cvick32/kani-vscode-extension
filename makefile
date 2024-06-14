@@ -2,7 +2,7 @@ default:
 	./node_modules/.bin/vsce package
 
 install:
-	code --install-extension kani-extension-*.vsix
+	code --install-extension kani-vscode-extension-*.vsix
 
 format:
 	./node_modules/.bin/tsfmt -r src/*.ts
